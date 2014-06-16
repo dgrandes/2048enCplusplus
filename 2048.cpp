@@ -31,6 +31,8 @@ srand(time(NULL));
 
    tablero[casillaRandom()][casillaRandom()] = valorRandom();
    tablero[casillaRandom()][casillaRandom()] = valorRandom();
+
+   int pilas[BOARD_SIZE][BOARD_SIZE] = {0};
    
    bool gameEnded = false;
 
@@ -50,11 +52,30 @@ srand(time(NULL));
 		   cout << "Usted jugo " << userInput << "\n\n";
 
 			//4 Actualizamos el tablero
-		   	//switch(userInput){
-		   //		case 'w': 
-		   	//}
-   			//5 Se decide si se pierde o se gana, y se muestra el mensaje correcto o si no, se vuelve al paso 2
+		   	switch(userInput){
+		   		case 'w': {
+		   			for(int j = 0; j < BOARD_SIZE; j++){
+		   				int idxPila=0;
 
+		   				for(int i=0; i < BOARD_SIZE; i++){
+		   					if(tablero[i][j]!=0){
+		   						pilas[j][idxPila]=tablero[i][j];
+		   						idxPila++;
+
+		   					}
+		   				}
+		   			}
+		   		}
+		   	}
+   			//5 Se decide si se pierde o se gana, y se muestra el mensaje correcto o si no, se vuelve al paso 2
+   			cout<< "pila\n";
+			for(int i=0; i < BOARD_SIZE; i++){
+		   	for(int j = 0; j < BOARD_SIZE; j++){
+		   		cout << tablero[i][j];
+		   		cout << " ";
+		   	}
+		   	cout << "\n";
+		   }
 
 		   if(userInput == 'q'){
 		   		gameEnded = true;
