@@ -31,6 +31,7 @@ srand(time(NULL));
 
    tablero[casillaRandom()][casillaRandom()] = valorRandom();
    tablero[casillaRandom()][casillaRandom()] = valorRandom();
+  
 
    int pilas[BOARD_SIZE][BOARD_SIZE] = {0};
    
@@ -38,6 +39,7 @@ srand(time(NULL));
 
    while(!gameEnded){
    		//2 Mostramos el trablero
+   			cout<< "TABLERO!!\n";
 		   for(int i=0; i < BOARD_SIZE; i++){
 		   	for(int j = 0; j < BOARD_SIZE; j++){
 		   		cout << tablero[i][j];
@@ -45,6 +47,9 @@ srand(time(NULL));
 		   	}
 		   	cout << "\n";
 		   }
+
+		   cout<< "END OF TABLERO!!\n";
+
 		   //3 Esperamos a que el usuario ingrese una flecha, si no es eso, no pasa nada. Si pone la q, sale del juego.
 		   char userInput;
 		   cin >> userInput;
@@ -67,15 +72,50 @@ srand(time(NULL));
 		   			}
 		   		}
 		   	}
+
+
+		   	for(int i = 0; i < BOARD_SIZE; i++){
+		   		for(int j=0; j < BOARD_SIZE - 1; j++){
+		   			int valorActual = pilas[i][j];
+		   			int valorSiguiente = pilas[i][j+1];
+		   			if(valorActual == valorSiguiente){
+
+		   				pilas[i][j] = valorActual + valorSiguiente;
+		   				for(int k = j + 1; k < BOARD_SIZE; k++){
+		   					int v = 0;
+		   					if(k + 1 < BOARD_SIZE){
+		   						v = pilas[i][k+1];
+		   					}
+		   					pilas[i][k] = v;
+		   				}
+		   			}
+		   		}
+		   	}
+
+		   	//Agregar un random, si no se puede agregar nada, el jugador perdio!!!!
+		   	
    			//5 Se decide si se pierde o se gana, y se muestra el mensaje correcto o si no, se vuelve al paso 2
-   			cout<< "pila\n";
+   			cout<< "PILA!\n";
 			for(int i=0; i < BOARD_SIZE; i++){
-		   	for(int j = 0; j < BOARD_SIZE; j++){
-		   		cout << tablero[i][j];
+		   		for(int j = 0; j < BOARD_SIZE; j++){
+		   		cout << pilas[i][j];
 		   		cout << " ";
 		   	}
 		   	cout << "\n";
 		   }
+		   cout<< "END OF PILA\n\n";
+	   
+	   		switch(userInput){
+	   			case 'w':{
+	   				for(int j = 0; j < BOARD_SIZE; j++){
+	   					for(int i = 0; i < BOARD_SIZE; i++){
+	   						tablero[i][j] = pilas[j][i];
+	   					}
+	   				}
+	   			}break;
+	   		}
+
+
 
 		   if(userInput == 'q'){
 		   		gameEnded = true;
